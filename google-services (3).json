@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "311471241557",
+    "firebase_url": "https://project-7985900224190832571.firebaseio.com",
+    "project_id": "project-7985900224190832571",
+    "storage_bucket": "project-7985900224190832571.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:311471241557:android:9aad295f60ded28c",
+        "android_client_info": {
+          "package_name": "coach.panwar.com.coachregi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "311471241557-l7jdvlvcefj8hcvphvj4emv6nqh3m2s8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDie9Sa1JGNjx29KRZngpAeqYcHFdE5uxs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

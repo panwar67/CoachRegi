@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="coach.panwar.com.coachregi.ScrollingActivity"
+    tools:showIn="@layout/activity_scrolling">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+
+
+
+        tools:context="coach.panwar.com.coachregi.RegistrationDesk"
+        tools:showIn="@layout/activity_registration_desk"
+        >
+
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+
+            android:id="@+id/button6"
+            android:background="@drawable/mypofile"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+
+            android:id="@+id/button7"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="20dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/mycalender"
+            />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+
+            android:id="@+id/button8"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/myevent"
+
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="20dp"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:id="@+id/button9"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/eedit"
+
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="20dp"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:id="@+id/button10"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/iimage"
+
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="20dp"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:id="@+id/button11"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/feed"
+
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="20dp"/>
+
+
+
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>
