@@ -28,9 +28,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".LoginActivity"
-            android:label="@string/title_activity_login">
-
-        </activity>
+            android:label="@string/title_activity_login"></activity>
         >
         <activity
             android:name=".ScrollingActivity"
@@ -39,11 +37,7 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="coach.panwar.com.coachregi.LoginActivity" />
-
-
-
         </activity>
-
         <activity
             android:name=".RegistrationFinal"
             android:label="@string/title_activity_registration_final"
@@ -79,6 +73,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".OptionsDrawer"
+            android:label="@string/title_activity_options_drawer"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

@@ -2,9 +2,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/splash"
+    android:background="@android:color/holo_orange_light"
     tools:context="coach.panwar.com.coachregi.start">
 
+    
+    <ImageView
+        android:layout_width="200dp"
+        android:layout_height="500dp"
+        android:src="@drawable/loadingicon"
+        android:layout_gravity="center"/>
+    
+    
     <!-- The primary full-screen view. This can be replaced with whatever view
          is needed to present your content, e.g. VideoView, SurfaceView,
          TextureView, etc. -->
