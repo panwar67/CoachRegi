@@ -1,0 +1,58 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black_overlay"
+    tools:context="coach.panwar.com.coachregi.SubmitQueryFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:orientation="vertical">
+
+       <TextView
+           android:paddingTop="20dp"
+           android:layout_marginTop="10dp"
+           android:textStyle="italic|bold"
+
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_margin="5dp"
+           android:text="Send your queries to the management, the reviewing process can take couple of days"/>
+
+
+
+
+    <EditText
+        android:id="@+id/queryname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter Query"
+        android:layout_margin="5dp"/>
+
+    <EditText
+        android:id="@+id/querydate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+android:layout_margin="5dp"
+        android:hint="DATE"/>
+
+
+       <Button
+           android:id="@+id/submitquery"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:textStyle="bold"
+           android:text="SUBMIT"
+           android:textAlignment="center"
+           android:textSize="35dp"
+           android:textColor="@android:color/white"
+           android:layout_margin="10dp"
+           android:background="@android:color/holo_green_light"/>
+
+   </LinearLayout>
+
+
+
+</FrameLayout>
