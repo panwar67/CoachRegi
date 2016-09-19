@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">CoachRegi</string>
+    <string name="app_name">WCC</string>
     <string name="action_settings">Settings</string>
-    <string name="Login"></string>
+    <string name="Login">WCC</string>
     <string name="title_activity_login">Sign in</string>
 
     <!-- Strings related to login -->
@@ -15,10 +15,10 @@
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
-    <string name="permission_rationale">"Contacts permissions are needed for providing email
+    <string name="permission_rationale">"All permissions are needed for providing login
         completions."</string>
     <string-array name="bloodarray">
-        <item>Choose Blood Group</item>
+
         <item>B+</item>
         <item>AB+</item>
         <item>A+</item>
@@ -29,7 +29,7 @@
         <item>O-</item>
     </string-array>
     <string-array name="batarray">
-        <item>Select Batting Hand</item>
+
 
         <item>LEFT</item>
         <item>RIGHT</item>
@@ -45,7 +45,7 @@
         <item>Undefined</item>
     </string-array>
     <string-array name="bwlproarray">
-        <item>Bowling Proficiency</item>
+
 
         <item>Medium Pace</item>
         <item>Off Spinner</item>
@@ -55,7 +55,7 @@
 
     </string-array>
     <string-array name="wkcp">
-        <item>Wicket Keeping</item>
+
 
         <item>YES</item>
         <item>NO</item>
@@ -197,7 +197,7 @@
     <string name="title_activity_start">start</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
-    <string name="title_activity_options_drawer">OptionsDrawer</string>
+    <string name="title_activity_options_drawer"></string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>

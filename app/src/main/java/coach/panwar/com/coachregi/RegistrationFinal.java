@@ -55,11 +55,13 @@ import java.util.Map;
 public class RegistrationFinal extends AppCompatActivity {
 
     ImageView dp;
-    UploadImage uploadImage;
+    //UploadImage uploadImage;
     String  UPLOAD_URL="http://www.whydoweplay.com/CoachData/regusr.php";
+    String UPLOAD_URL1 = "http://www.whydoweplay.com/CoachData/signup.php";
     String DOWN_URL = "http://www.whydoweplay.com/CoachData/getprofile.php";
 
-    EditText datedit, firstname, middlename, lastname,pob,fatname,motname,add1,city,dist,state,mob,email, tel;
+    SessionManager sessionManager;
+    EditText datedit, firstname, middlename, lastname,pob,fatname,motname,add1,city,dist,state,mob,email, tel, pass, conpass;
     Calendar myCalendar = Calendar.getInstance();
     Button register;
     TextView ageid, uidfield;
@@ -74,15 +76,18 @@ public class RegistrationFinal extends AppCompatActivity {
         setContentView(R.layout.activity_registration_final);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         Init();
-        Intent signup = getIntent();
-        String user =  signup.getStringExtra("userid");
-        String uid = signup.getStringExtra("uid");
-        email.setText(user);
+       // email.setText(user);
+        //uidfield.setText(uid);
+        String uid = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+
         uidfield.setText(uid);
 
+
+        sessionManager = new SessionManager(getApplicationContext());
         setSupportActionBar(toolbar);
         Config config = new Config();        config.setSelectionMin(1);
         config.setSelectionLimit(1);
+
         ImagePickerActivity.setConfig(config);
         ImageLoaderConfiguration.Builder config1 = new ImageLoaderConfiguration.Builder(getApplicationContext());
         config1.threadPriority(Thread.NORM_PRIORITY - 2);
@@ -201,6 +206,8 @@ public class RegistrationFinal extends AppCompatActivity {
         bwlpro = (Spinner) findViewById(R.id.bwlpro);
         wk = (Spinner) findViewById(R.id.wck);
         uidfield = (TextView)findViewById(R.id.uidfield);
+        pass = (EditText)findViewById(R.id.passuser);
+        conpass = (EditText)findViewById(R.id.conpassuser);
 
 
 
@@ -237,11 +244,13 @@ public class RegistrationFinal extends AppCompatActivity {
         String mobile = String.valueOf(mob.getText());
         String tele = String.valueOf(tel.getText());
         String blood = bloodgrp.getSelectedItem().toString();
+        String passw = pass.getText().toString();
+        String conpassw = conpass.getText().toString();
         if(first_name.isEmpty()||last_name.isEmpty()||dob.isEmpty()||Place.isEmpty()||
                 father.isEmpty()||mother.isEmpty()||age.isEmpty()||bat_hand.isEmpty()||
                 bwl_hand.isEmpty()||bwl_type.isEmpty()||wckp.isEmpty()||add_1.isEmpty()||
                 City.isEmpty()||district.isEmpty()||State.isEmpty()||mobile.isEmpty()||
-                tele.isEmpty()||blood.isEmpty()||emailadd.isEmpty())
+                tele.isEmpty()||blood.isEmpty()||emailadd.isEmpty()||passw.isEmpty()||conpassw.isEmpty())
 
         {
             Toast.makeText(RegistrationFinal.this, "All the fields are mandatory", Toast.LENGTH_SHORT).show();
@@ -252,24 +261,26 @@ public class RegistrationFinal extends AppCompatActivity {
         {
             email.setError("enter valid email address");
         }
+
+        else if(!passw.equals(conpassw)){
+            conpass.setError("Passwords do not match");
+            Toast.makeText(RegistrationFinal.this, "Passwords mismatch", Toast.LENGTH_SHORT).show();
+
+
+        }
         else
         {
             //uploadImage = new UploadImage(Keyvalue);
             //uploadImage.execute();
-            uploadImage();
+           // SignUpCredentials(email.getText().toString(), pass.getText().toString(),uidfield.getText().toString());
 
+            uploadImage();
         }
 
 
     }
 
-
-
-
-
-
-
-    private void updateLabel() {
+  private void updateLabel() {
 
         String myFormat = "yyyy-MM-dd"; //In which you need put here
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.getDefault());
@@ -335,52 +346,6 @@ public class RegistrationFinal extends AppCompatActivity {
 
 
 
-         class UploadImage extends AsyncTask<Void,Void,String> {
-
-            HashMap<String,String> paramet = new HashMap<String, String>();
-
-            UploadImage(HashMap<String,String> data ){
-
-                paramet = data;
-
-            }
-
-            ProgressDialog loading;
-            ReqHandler rh = new ReqHandler();
-
-
-
-             @Override
-            protected void onPreExecute() {
-                super.onPreExecute();
-                loading = ProgressDialog.show(RegistrationFinal.this, "Establishing Connection", "Please wait...",true,true);
-            }
-
-            @Override
-            protected void onPostExecute(String s) {
-                if(s.isEmpty()){
-                    Toast.makeText(getApplicationContext(),"No connection error",Toast.LENGTH_LONG).show();
-
-                }
-
-                super.onPostExecute(s);
-                loading.dismiss();
-
-                Toast.makeText(getApplicationContext(),s,Toast.LENGTH_LONG).show();
-            }
-
-            @Override
-            protected String doInBackground(Void... params) {
-
-
-                loading.setMessage("Registering User");
-
-
-                String result = rh.sendPostRequest(UPLOAD_URL,paramet);
-
-                return result;
-            }
-        }
 
 
 
@@ -395,17 +360,22 @@ public class RegistrationFinal extends AppCompatActivity {
                     @Override
                     public void onResponse(String s) {
 
+                        loading.dismiss();
                         if (s != null)
                         {
 
                             if(s.equals("Uploaded"))
                             {
 
-                                startActivity(new Intent(RegistrationFinal.this,ScrollingActivity.class));
+                                sessionManager.createLoginSession(email.getText().toString(),uidfield.getText().toString());
+                                startActivity(new Intent(RegistrationFinal.this,start.class));
 
-                            }else if(s.equals("failed"))
+                                finish();
+
+
+                            }else if(s.equals("exists"))
                             {
-                                Toast.makeText(RegistrationFinal.this, "Error Occured Please Try Again Later" , Toast.LENGTH_LONG).show();
+                                Toast.makeText(RegistrationFinal.this, "Email Already Registered" , Toast.LENGTH_LONG).show();
 
 
                             }
@@ -416,7 +386,7 @@ public class RegistrationFinal extends AppCompatActivity {
 
 
                         //Disimissing the progress dialog
-                        loading.dismiss();
+
                         //Showing toast message of the response
                         Toast.makeText(RegistrationFinal.this, s , Toast.LENGTH_LONG).show();
                     }
@@ -457,6 +427,7 @@ public class RegistrationFinal extends AppCompatActivity {
                 String mobile = String.valueOf(mob.getText());
                 String tele = String.valueOf(tel.getText());
                 String blood = bloodgrp.getSelectedItem().toString();
+                String passs  =  pass.getText().toString();
 
 
                 Keyvalue.put("fname",first_name);
@@ -482,6 +453,7 @@ public class RegistrationFinal extends AppCompatActivity {
                 Keyvalue.put("wckp",wckp);
                 Keyvalue.put("blood_grp",blood);
                 Keyvalue.put("image",imageDP);
+                Keyvalue.put("pass",passs);
                 Log.d("image",imageDP.toString());
 
 
@@ -500,6 +472,93 @@ public class RegistrationFinal extends AppCompatActivity {
         //Adding request to the queue
         requestQueue.add(stringRequest);
     }
+
+    public boolean SignUpCredentials(final String emailid, final String pass, final String uid){
+
+        //Showing the progress dialog
+        final ProgressDialog loading = ProgressDialog.show(this,"Checking credentials...","Please wait...",false,false);
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, UPLOAD_URL1,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+
+                        loading.dismiss();
+                        if(s==null){
+                            Toast.makeText(getApplicationContext(), "Please Try Again Later" , Toast.LENGTH_LONG).show();
+
+
+                        }else if(s.equals("Sucess")){
+
+                            uploadImage();
+
+
+
+                        }else if (s.equals("Exists"))
+                        {
+
+                            email.setError("Alredy in use");
+                            Toast.makeText(getApplicationContext(), "User Already Exists Change Email" , Toast.LENGTH_LONG).show();
+
+
+                        }
+                        else
+                            Toast.makeText(getApplicationContext(), "Some Error Occured Please Try After Sometime.." , Toast.LENGTH_LONG).show();
+
+
+                        //Disimissing the progress dialog
+
+                        //Showing toast message of the response
+                        Toast.makeText(getApplicationContext(), s , Toast.LENGTH_LONG).show();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        //Dismissing the progress dialog
+                        loading.dismiss();
+
+                        //Showing toast
+                        Toast.makeText(getApplicationContext(), "Error In Connectivity", Toast.LENGTH_LONG).show();
+                    }
+                }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                //Converting Bitmap to String
+
+
+                HashMap<String,String> Keyvalue = new HashMap<>();
+                Keyvalue.put("email",emailid);
+                Log.d("login email", emailid);
+                Keyvalue.put("pass",pass);
+                Keyvalue.put("uid", uid);
+
+                Log.d("pass", pass);
+
+
+                //returning parameters
+                return Keyvalue;
+            }
+        };
+
+        //Creating a Request Queue
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+
+
+
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(0, -1, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+        //Adding request to the queue
+        requestQueue.add(stringRequest);
+
+
+
+
+
+
+        return false;
+    }
+
+
 
 
 

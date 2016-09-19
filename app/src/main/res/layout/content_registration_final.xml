@@ -32,6 +32,7 @@
             android:visibility="visible" />
 
         <TextView
+            android:layout_margin="5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/uidfield"
@@ -39,7 +40,8 @@
 
 
         <EditText
-            android:layout_width="382dp"
+            android:layout_margin="5dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
             android:hint="@string/firstname"
@@ -50,6 +52,7 @@
 
 
         <EditText
+            android:layout_margin="5dp"
             android:layout_width="383dp"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
@@ -61,6 +64,7 @@
              />
 
         <EditText
+            android:layout_margin="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="date"
@@ -70,6 +74,7 @@
             android:layout_gravity="center_horizontal" />
 
         <EditText
+            android:layout_margin="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/editText19"
@@ -78,6 +83,7 @@
             android:inputType="text" />
 
         <EditText
+            android:layout_margin="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
@@ -88,6 +94,7 @@
             android:layout_gravity="center_horizontal" />
 
         <EditText
+            android:layout_margin="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
@@ -97,6 +104,7 @@
             android:layout_gravity="center_horizontal" />
 
         <TextView
+            android:layout_margin="5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="AGE"
@@ -106,6 +114,7 @@
             android:paddingBottom="10dp" />
 
         <EditText
+            android:layout_margin="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textMultiLine"
@@ -116,6 +125,7 @@
             android:paddingTop="10dp" />
 
         <EditText
+            android:layout_margin="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
@@ -126,26 +136,31 @@
             android:layout_gravity="center_horizontal" />
 
         <EditText
+            android:layout_margin="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
 
+            android:singleLine="true"
             android:hint="@string/dist"
             android:ems="10"
             android:id="@+id/editText24"
             android:layout_gravity="center_horizontal" />
 
         <EditText
+            android:layout_margin="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
 
+            android:singleLine="true"
             android:hint="@string/state"
             android:ems="10"
             android:id="@+id/editText25"
             android:layout_gravity="center_horizontal" />
 
         <EditText
+            android:layout_margin="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="phone"
@@ -155,6 +170,7 @@
             android:layout_gravity="center_horizontal" />
 
         <EditText
+            android:layout_margin="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="phone"
@@ -164,19 +180,37 @@
             android:layout_gravity="center_horizontal" />
 
         <EditText
+            android:layout_margin="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress"
             android:ems="10"
             android:hint="@string/email"
             android:id="@+id/editText28"
+            android:singleLine="true"
             android:layout_gravity="center_horizontal" />
+        <EditText
+            android:layout_margin="5dp"
+            android:layout_width="match_parent"
+            android:hint="Enter Your password"
+            android:layout_height="wrap_content"
+            android:id="@+id/passuser"/>
+        <EditText
+            android:layout_margin="5dp"
+            android:layout_width="match_parent"
+            android:hint="Confirm Password"
+            android:layout_height="wrap_content"
+            android:id="@+id/conpassuser"/>
         <Spinner
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/bld"
             android:entries="@array/bloodarray"
             android:prompt="@string/bl"
+
+            android:layout_marginTop="5dp"
+            android:layout_margin="5dp"
             android:spinnerMode="dialog">
 
         </Spinner>
@@ -187,7 +221,10 @@
             android:id="@+id/bat"
             android:entries="@array/batarray"
             android:prompt="@string/batstyle"
-            android:spinnerMode="dialog">
+            android:spinnerMode="dialog"
+
+            android:layout_marginTop="5dp"
+            android:layout_margin="5dp">
 
         </Spinner>
         <Spinner
@@ -196,7 +233,10 @@
             android:id="@+id/bwl"
             android:entries="@array/bwlarray"
             android:prompt="@string/bowlstyle"
-            android:spinnerMode="dialog">
+            android:spinnerMode="dialog"
+
+            android:layout_marginTop="5dp"
+            android:layout_margin="5dp">
 
         </Spinner>
         <Spinner
@@ -205,10 +245,15 @@
             android:id="@+id/bwlpro"
             android:entries="@array/bwlproarray"
             android:prompt="@string/typebowl"
-            android:spinnerMode="dialog">
+            android:spinnerMode="dialog"
+
+            android:layout_marginTop="5dp"
+            android:layout_margin="5dp">
 
         </Spinner>
         <Spinner
+            android:layout_marginTop="5dp"
+            android:layout_margin="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
 
@@ -220,7 +265,14 @@
         </Spinner>
 
         <Button
-            android:layout_width="wrap_content"
+
+            android:layout_margin="10dp"
+
+            android:background="@android:color/holo_green_light"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"
+            android:textAlignment="center"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/save"
             android:id="@+id/button3"

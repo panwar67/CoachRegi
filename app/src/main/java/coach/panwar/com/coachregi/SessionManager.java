@@ -47,6 +47,8 @@ public class SessionManager {
      * */
     public void createLoginSession(String name, String uid){
         // Storing login value as TRUE
+        logoutUser();
+
         editor.putBoolean(IS_LOGIN, true);
 
         // Storing name in pref

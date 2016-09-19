@@ -10,4 +10,5 @@ public class EventStruct {
     public static final String eventtitle = "EVENTTITLE";
     public static final String eventdes = "EVENTDESC";
     public static final String eventdate = "EVENTDATE";
+    public static final String eventmeta = "EVENTMETA";
 }

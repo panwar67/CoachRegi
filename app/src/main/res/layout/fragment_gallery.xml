@@ -1,9 +1,8 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black_overlay"
-    tools:context="coach.panwar.com.coachregi.EventsFragment">
+    tools:context="coach.panwar.com.coachregi.GalleryFragment">
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -12,6 +11,6 @@
         android:layout_height="match_parent"
 
         android:background="@color/black_overlay"
-        android:id="@+id/eventlist"></ListView>
+        android:id="@+id/gallerylist"></ListView>
 
-</FrameLayout>
+</LinearLayout>

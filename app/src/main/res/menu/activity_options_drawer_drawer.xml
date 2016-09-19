@@ -3,21 +3,42 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/calicon"
+            android:id="@+id/nav_calender"
             android:title="Calender" />
         <item
-            android:id="@+id/nav_gallery"
             android:icon="@drawable/ic_menu_gallery"
+            android:id="@+id/nav_gallery"
             android:title="Gallery" />
         <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/events"
+            android:id="@+id/nav_events"
             android:title="Events" />
         <item
+            android:icon="@drawable/profile"
             android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Profile" />
+            android:title="Profile"
+            />
+        <item android:id="@+id/nav_news"
+            android:title="News"
+            android:icon="@drawable/newsicon">
+
+
+        </item>
+
+        <item android:id="@+id/nav_query"
+            android:icon="@android:drawable/ic_dialog_email"
+            android:title="Query">
+        </item>
+        <item
+            android:icon="@drawable/logout"
+            android:id="@+id/nav_log_out"
+            android:title="Log Out">
+        </item>
+
+
+
+
     </group>
 
 

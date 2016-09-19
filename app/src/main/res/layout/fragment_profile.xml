@@ -27,20 +27,27 @@
 
     <ImageView
 
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
         android:id="@+id/displayimage"
         android:layout_weight="1"
+        android:scaleType="fitXY"
         android:background="@android:color/white"
         android:layout_width="match_parent"
         android:layout_height="200dp" />
 
             <LinearLayout
 
+                android:layout_margin="5dp"
                 android:layout_weight="1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <TextView
+                    android:drawableLeft="@drawable/name"
+                    android:id="@+id/profilename"
                     android:paddingLeft="5dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -49,6 +56,8 @@
                     android:text="NAME"/>
 
                 <TextView
+                    android:drawableLeft="@drawable/location"
+                    android:id="@+id/profileplace"
                     android:layout_margin="3dp"
                     android:paddingLeft="5dp"
                     android:layout_width="wrap_content"
@@ -58,14 +67,30 @@
                     />
 
                 <TextView
+                    android:drawableLeft="@drawable/baticon"
+                    android:id="@+id/profilebat"
                     android:paddingLeft="5dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
                     android:layout_margin="3dp"
-                    android:text="NAME"/>
+                    android:text="BATTING"/>
+
 
                 <TextView
+
+
+                    android:drawableLeft="@drawable/ball"
+                    android:textStyle="bold"
+                    android:id="@+id/profilebowl"
+                    android:paddingLeft="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="BOWL"
+                    android:layout_margin="3dp"/>
+
+                <TextView
+                    android:id="@+id/profileage"
                     android:layout_margin="3dp"
                     android:paddingLeft="5dp"
                     android:layout_width="wrap_content"
@@ -86,6 +111,7 @@
 
         <TextView
 
+            android:layout_margin="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Achievements"
@@ -95,6 +121,7 @@
             android:drawableLeft="@drawable/achieve"/>
 
         <ListView
+            android:layout_margin="5dp"
             android:layout_marginTop="5dp"
             android:layout_width="match_parent"
             android:id="@+id/achievelist"
@@ -102,6 +129,16 @@
             android:layout_height="wrap_content">
 
         </ListView>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+
+            android:textAlignment="center"
+            android:text="Coming Soon...."
+            android:textStyle="italic|bold"
+            />
 
 
 

@@ -10,5 +10,6 @@ public class NewsStruct {
     public static final String TITLE = "TITLE";
     public static final String DESC = "DESCRIPTION";
     public static final String DATE = "DATE";
+    public static final String PATH = "PATH";
 
 }

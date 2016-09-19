@@ -1,12 +1,22 @@
 package coach.panwar.com.coachregi;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.ListView;
+
+import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 
 
 /**
@@ -22,6 +32,10 @@ public class ScheduleFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    ListView listView;
+    ImageLoader imageLoader;
+    DisplayImageOptions options;
+    DBHelper dbHelper;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -58,13 +72,40 @@ public class ScheduleFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        dbHelper = new DBHelper(getContext());
+
+        options = new DisplayImageOptions.Builder().cacheOnDisk(true).cacheInMemory(true).bitmapConfig(Bitmap.Config.RGB_565).imageScaleType(ImageScaleType.EXACTLY).resetViewBeforeLoading(true).build();
+        ImageLoaderConfiguration.Builder config1 = new ImageLoaderConfiguration.Builder(getContext());
+        config1.defaultDisplayImageOptions(options);
+        config1.threadPriority(Thread.NORM_PRIORITY - 2);
+        config1.denyCacheImageMultipleSizesInMemory();
+        config1.diskCacheFileNameGenerator(new Md5FileNameGenerator());
+        config1.diskCacheSize(100 * 1024 * 1024); // 50 MiB
+        config1.tasksProcessingOrder(QueueProcessingType.LIFO);
+        config1.writeDebugLogs();
+
+
+
+
+
+        imageLoader = ImageLoader.getInstance();
+//        imageLoader.destroy();
+        imageLoader.init(config1.build());
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_schedule, container, false);
+        View root = inflater.inflate(R.layout.fragment_schedule, container, false);
+
+      ImageView imageview = (ImageView) root.findViewById(R.id.ScheduleImage);
+
+        imageLoader.displayImage(dbHelper.GetSch().get("PATH"), imageview);
+
+
+        return root;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

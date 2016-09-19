@@ -4,10 +4,13 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -44,11 +47,13 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.greysonparrelli.permiso.Permiso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.security.Permission;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -56,7 +61,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static android.Manifest.permission.CAMERA;
 import static android.Manifest.permission.READ_CONTACTS;
+import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
+import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
 /**
  * A login screen that offers login via email/password.
@@ -67,6 +75,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * Id to identity READ_CONTACTS permission request.
      */
     private static final int REQUEST_READ_CONTACTS = 0;
+    int REQUEST_READ_CAMERA = 1;
+    int REQUEST_READ_STORE = 2;
     String UPLOAD_URL = "http://www.whydoweplay.com/CoachData/loginusr.php";
     String DOWN_URL = "http://www.whydoweplay.com/CoachData/getprofile.php";
 
@@ -96,12 +106,27 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         dbHelper = new DBHelper(getApplicationContext());
         sessionManager = new SessionManager(getApplicationContext());
         // Set up the login form.
+        mayRequestCamera();
+        mayRequestStorage();
+        Check();
+
+
+
+
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         populateAutoComplete();
         Intent intent = getIntent();
         String user =  intent.getStringExtra("userid");
         String pass = intent.getStringExtra("pass");
 
+
+        if(sessionManager.isLoggedIn()&&sessionManager.getUserDetails().get("uid")!=null)
+        {
+
+           startActivity(new Intent(LoginActivity.this,start.class));
+            finish();
+
+        }
 
 
         mPasswordView = (EditText) findViewById(R.id.password);
@@ -110,8 +135,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         regi.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent newsign = new Intent(LoginActivity.this,SignUp.class);
+                Intent newsign = new Intent(LoginActivity.this,RegistrationFinal.class);
                 startActivity(newsign);
+                finish();
             }
         });
 
@@ -132,6 +158,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
     private void populateAutoComplete() {
+
         if (!mayRequestContacts()) {
             return;
         }
@@ -146,6 +173,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         if (checkSelfPermission(READ_CONTACTS) == PackageManager.PERMISSION_GRANTED) {
             return true;
         }
+
         if (shouldShowRequestPermissionRationale(READ_CONTACTS)) {
             Snackbar.make(mEmailView, R.string.permission_rationale, Snackbar.LENGTH_INDEFINITE)
                     .setAction(android.R.string.ok, new View.OnClickListener() {
@@ -161,6 +189,58 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         return false;
     }
 
+
+
+    private boolean mayRequestStorage() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+            return true;
+        }
+        if (checkSelfPermission(WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+            return true;
+        }
+
+
+
+        if (shouldShowRequestPermissionRationale(WRITE_EXTERNAL_STORAGE)) {
+            Snackbar.make(mEmailView, R.string.permission_rationale, Snackbar.LENGTH_INDEFINITE)
+                    .setAction(android.R.string.ok, new View.OnClickListener() {
+                        @Override
+                        @TargetApi(Build.VERSION_CODES.M)
+                        public void onClick(View v) {
+                            requestPermissions(new String[]{WRITE_EXTERNAL_STORAGE}, REQUEST_READ_STORE);
+                        }
+                    });
+        } else {
+            requestPermissions(new String[]{WRITE_EXTERNAL_STORAGE}, REQUEST_READ_STORE);
+        }
+        return false;
+    }
+
+    private boolean mayRequestCamera() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+            return true;
+        }
+        if (checkSelfPermission(CAMERA) == PackageManager.PERMISSION_GRANTED) {
+            return true;
+        }
+
+        if (shouldShowRequestPermissionRationale(CAMERA)) {
+            Snackbar.make(mEmailView, R.string.permission_rationale, Snackbar.LENGTH_INDEFINITE)
+                    .setAction(android.R.string.ok, new View.OnClickListener() {
+                        @Override
+                        @TargetApi(Build.VERSION_CODES.M)
+                        public void onClick(View v) {
+                            requestPermissions(new String[]{CAMERA}, REQUEST_READ_CAMERA);
+                        }
+                    });
+        } else {
+            requestPermissions(new String[]{CAMERA}, REQUEST_READ_CAMERA);
+        }
+        return false;
+    }
+
+
+
     /**
      * Callback received when a permissions request has been completed.
      */
@@ -172,6 +252,23 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 populateAutoComplete();
             }
         }
+
+        if(requestCode== REQUEST_READ_CAMERA)
+        {
+            if(grantResults.length==1&& grantResults[0]==PackageManager.PERMISSION_GRANTED)
+            {
+
+
+            }
+        }
+        if(requestCode==REQUEST_READ_STORE)
+        {
+            if (grantResults.length==1&&grantResults[0]==PackageManager.PERMISSION_GRANTED);
+            {
+
+            }
+        }
+
     }
 
 
@@ -228,6 +325,28 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         }
     }
 
+
+    public Boolean Check() {
+        ConnectivityManager cn = (ConnectivityManager) getApplicationContext()
+                .getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo nf = cn.getActiveNetworkInfo();
+        if (nf != null && nf.isConnected() == true) {
+            return true;
+        } else {
+
+            Toast.makeText(getApplicationContext(), "No internet connection.!",
+                    Toast.LENGTH_LONG).show();
+            startActivity(new Intent(LoginActivity.this,NoConnectionActivity.class));
+            finish();
+
+
+            return false;
+        }
+    }
+
+
+
+
     public boolean setUpProfile(final String uid){
 
         //Showing the progress dialog
@@ -269,7 +388,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                Log.d("profile data", s);
 
                                 dbHelper.InsertLeagueTable(uid,fname,lname,fatname,motname,dob,pob,add,city,dist,state,mob,tel,email,bat,bwl,bwlatt,wck,blood,image);
-                                startActivity(new Intent(LoginActivity.this,ScrollingActivity.class));
+                                startActivity(new Intent(LoginActivity.this,OptionsDrawer.class));
 
 
 
@@ -353,7 +472,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                         if (s!=null)
                         {
 
-                            if (s.equals("incorrect"))
+                            if (s.equals("Incorrect Credentials"))
                             {
                                 Toast.makeText(LoginActivity.this, "Incorrent Username or Password", Toast.LENGTH_LONG).show();
                             }
@@ -431,7 +550,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     private boolean isPasswordValid(String password) {
         //TODO: Replace this with your own logic
-        return password.length() > 4;
+        return password.length() >0;
     }
 
     /**

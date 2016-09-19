@@ -4,9 +4,17 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ListView;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 
 /**
@@ -22,6 +30,9 @@ public class NewFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    ListView events;
+    DBHelper dbHelper;
+    ArrayList<HashMap<String,String>> data = new ArrayList<HashMap<String, String>>();
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -58,13 +69,38 @@ public class NewFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        dbHelper = new DBHelper(getContext());
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_new, container, false);
+
+        View root = inflater.inflate(R.layout.fragment_new, container, false);
+        events = (ListView)root.findViewById(R.id.newslist);
+        data = dbHelper.GetNewsMap();
+
+        events.setAdapter(new Simple_News_Adapter(getContext(),data));
+        Log.d("news size adap",""+dbHelper.GetNewsMap().size());
+
+        events.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                NewsDetailFragment teamDetailsFragment = NewsDetailFragment.newInstance(data.get(i),"");
+                // FragmentManager transaction = getSupportFragmentManager();
+
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.nav_rep, teamDetailsFragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+        });
+
+
+
+        return root;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

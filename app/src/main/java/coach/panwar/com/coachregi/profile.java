@@ -25,6 +25,7 @@ import com.android.volley.toolbox.Volley;
 import com.gun0912.tedpicker.Config;
 import com.gun0912.tedpicker.ImagePickerActivity;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
@@ -46,6 +47,7 @@ public class profile extends AppCompatActivity {
     TextView name, fatmot,dobpob, age, blood, add, citydist,state, email,numbers, bat, bwl, bwlpro,weep;
     ImageView imageView;
     ImageLoader imageLoader;
+    DisplayImageOptions options;
 
 
 
